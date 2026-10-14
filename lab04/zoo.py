@@ -8,13 +8,25 @@ def show_help():
 def show_all_animals():
     print("The animals in the zoo are:")
     print("• Clover the Bunny 🐇")
+    print("• Marcus the Monkey 🐒")
     print("• Coco the Baby Goat 🐐")
     print("• Arno the Alligator 🐊")
 
+def hug_animal(animal):
+    if animal == "Clover":
+        print("clover hops away")
+    if animal == "marcus":
+        print("Marcus hugs you back!")
+    if animal == "coco":
+        print("Coco baaaas")
+    if animal == "arno":
+        print("Arno eats you! 🐊")
 
 def pet_animal(animal):
     if animal == "Clover":
         print("clover is so happy! ❤️")
+    if animal == "marcus":
+        print("Marcus waves hi!")   
     elif animal == "coco":
         print("Coco the Baby Goat thanks you! 🥰")
     elif animal == "arno":
@@ -27,18 +39,20 @@ print("Welcome to the Petting Zoo!")
 print("Type 'help' to get a list of all the things you can do")
 print()
 
-keep_going = True
-while keep_going:
+while True:
     response = input("What would you like to do? ").strip().lower()
     if response == "help":
         show_help()
     elif response == "see":
         show_all_animals()
-    elif response.startswith("pet "):
+    elif response.startswith("hug"):
+        animal = response[4:].strip()
+        hug_animal(animal)
+    elif response.startswith("pet"):
         animal = response[4:].strip()
         pet_animal(animal)
     elif response == "bye":
         print("Goodbye!")
-        keep_going = False
+        break
     else:
         print("Sorry, I don't understand that command.")
