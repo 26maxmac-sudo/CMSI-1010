@@ -19,6 +19,14 @@ class Person:
         dad = f"{self.dad.name if self.dad is not None else '?'}"
         return f"{self.name} {span} mom: {mom}, dad: {dad}"
 
+    def print_family_tree(self, prefix="", level=0):
+        """Print the family tree starting from this person."""
+        indent = "    " * level
+        print(f"{prefix}{self.name} {self.born or '?'}-{self.died or '?'}")
+        if self.mom:
+            self.mom.print_family_tree(f"  {indent}mom: ", level + 1)
+        if self.dad:
+            self.dad.print_family_tree(f"  {indent}dad: ", level + 1)
 
 odi = Person("Odelie Copele", born="1824", died="1873")
 paul = Person("Paul Grambois", born="1806")
@@ -51,13 +59,17 @@ ernie = Person("Ernest Fontaine", born="1857",
 suzanne = Person("Suzanne Fontaine", born="1894",
                  died="1979", mom=jeanne_p, dad=ernie)
 vittoria = Person("Vittoria Trusiano", born="1813", died="1880")
-francesco = Person("Francesco Alioto", born="c1813", died="c1880")
+francesco = Person("Francesco Alioto", born="1813", died="1880")
 maria = Person("Maria Alioto", born="1834",
                died=">1908", mom=vittoria, dad=francesco)
-concetta = Person("Concetta Buccafusca", born="c1795", died="1843")
-giuseppe = Person("Giuseppe Riggitano", born="c1786", died="1864")
+concetta = Person("Concetta Buccafusca", born="1795", died="1843")
+domenica = Person("Domenica Riggitano", born="1730", died="1800")
+filippo = Person("Filippo Riggitano", born="1725", died="1795")
+giuseppa = Person("Giuseppa Riggitano", born="1758", died="1830")
+santi = Person("Santi Riggitano", born="1754", died="1814", mom=domenica, dad=filippo)
+giuseppe = Person("Giuseppe Riggitano", born="1786", died="1864", dad=santi, mom=giuseppa)
 santo = Person("Santo Riggitano", born="1824",
-               died="c1898", mom=concetta, dad=giuseppe)
+               died="1898", mom=concetta, dad=giuseppe)
 salvatore = Person("Salvatore Riggitano", born="1876",
                    died="1960", mom=maria, dad=santo)
 louis = Person("Louis Prevost", born="1920",
@@ -65,7 +77,19 @@ louis = Person("Louis Prevost", born="1920",
 leo = Person("Robert Prevost", born="1955", mom=mildred, dad=louis)
 adele = Person("Adele Martinez", mom=marie, dad=jacques)
 
+
+
+
+
+
 print(marie)
 print(agenor)
 print(louise_a)
 print(joseph.is_sibling_of(adele))
+
+p1 = Person("Adele Martinez", mom=Person("Marie Ramos"), dad=Person("Jacques Martinez"))
+p2 = Person("Joseph Martinez", mom=Person("Marie Ramos"), dad=Person("Jacques Martinez"))
+print(p1.is_sibling_of(p2))
+
+
+leo.print_family_tree()
